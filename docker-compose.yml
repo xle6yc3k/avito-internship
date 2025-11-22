@@ -1,0 +1,16 @@
+services:
+  server:
+    build: ./backend
+    container_name: avito-backend
+    ports:
+      - "3001:3001"
+    restart: always
+
+  client:
+    build: ./frontend
+    container_name: avito-frontend
+    ports:
+      - "80:80" 
+    depends_on:
+      - server
+    restart: always
