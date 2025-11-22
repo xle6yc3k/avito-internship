@@ -2,20 +2,25 @@ import { api } from './index';
 
 export const statsApi = {
   // сводка
-  getSummary: async (period = 'week') => {
-    const { data } = await api.get('/stats/summary', { params: { period } });
+  getSummary: async (params) => {
+    const { data } = await api.get('/stats/summary', { params });
+    return data;
+  },
+
+  getActivity: async (params) => {
+    const { data } = await api.get('/stats/chart/activity', { params });
     return data;
   },
 
   // график активности
-  getActivity: async (period = 'week') => {
-    const { data } = await api.get('/stats/chart/activity', { params: { period } });
+  getDecisions: async (params) => {
+    const { data } = await api.get('/stats/chart/decisions', { params });
     return data;
   },
-
+  
   // график решений
-  getDecisions: async (period = 'week') => {
-    const { data } = await api.get('/stats/chart/decisions', { params: { period } });
+  getCategories: async (params) => {
+    const { data } = await api.get('/stats/chart/categories', { params });
     return data;
   }
 };
