@@ -1,35 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Layout } from './layout/Layout';
+
+// --- ВРЕМЕННЫЕ ЗАГЛУШКИ (пока не создали файлы страниц) ---
+const AdsListPage = () => (
+  <div className="text-center py-20">
+    <h2 className="text-2xl font-bold text-gray-700">📋 Список объявлений</h2>
+    <p className="text-gray-500 mt-2">Скоро здесь появятся карточки.</p>
+  </div>
+);
+
+const AdDetailsPage = () => (
+  <div className="text-center py-20">
+    <h2 className="text-2xl font-bold text-gray-700">📦 Детальная страница</h2>
+  </div>
+);
+
+const StatsPage = () => (
+  <div className="text-center py-20">
+    <h2 className="text-2xl font-bold text-gray-700">📊 Статистика</h2>
+  </div>
+);
+// ---------------------------------------------------------
+
+// Настройка React Query
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate to="/list" replace />} />
+            
+            <Route path="list" element={<AdsListPage />} />
+            <Route path="item/:id" element={<AdDetailsPage />} />
+            <Route path="stats" element={<StatsPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
 }
 
-export default App
+export default App;
