@@ -2,15 +2,9 @@ import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Layout } from './layout/Layout';
+import AdsListPage from './pages/AdsListPage';
 
-// --- ВРЕМЕННЫЕ ЗАГЛУШКИ (пока не создали файлы страниц) ---
-const AdsListPage = () => (
-  <div className="text-center py-20">
-    <h2 className="text-2xl font-bold text-gray-700">📋 Список объявлений</h2>
-    <p className="text-gray-500 mt-2">Скоро здесь появятся карточки.</p>
-  </div>
-);
-
+// ВРЕМЕННЫЕ ЗАГЛУШКИ
 const AdDetailsPage = () => (
   <div className="text-center py-20">
     <h2 className="text-2xl font-bold text-gray-700">📦 Детальная страница</h2>
@@ -22,7 +16,6 @@ const StatsPage = () => (
     <h2 className="text-2xl font-bold text-gray-700">📊 Статистика</h2>
   </div>
 );
-// ---------------------------------------------------------
 
 // Настройка React Query
 const queryClient = new QueryClient({
