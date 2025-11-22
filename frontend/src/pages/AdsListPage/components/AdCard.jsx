@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/Badge';
-import { MapPin, Clock, AlertCircle } from 'lucide-react';
+import { Tag, Clock, AlertCircle } from 'lucide-react';
 
 export const AdCard = ({ ad }) => {
   // цену в рубли
@@ -48,7 +48,7 @@ export const AdCard = ({ ad }) => {
         {/* мета-информация внизу */}
         <div className="mt-auto space-y-2 text-xs text-gray-500">
           <div className="flex items-center gap-1.5">
-            <MapPin size={14} />
+            <Tag size={14} />
             <span>{ad.category}</span>
           </div>
           <div className="flex items-center gap-1.5">

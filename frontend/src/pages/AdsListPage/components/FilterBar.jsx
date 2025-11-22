@@ -3,25 +3,22 @@ import { Search, X } from 'lucide-react';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
-import { badgeLabels } from '@/components/ui/Badge';
+import { CATEGORY_OPTIONS, STATUSES, STATUS_LABELS } from '@/shared/constants';
 
 export const FilterBar = ({ filters, onFilterChange, onReset }) => {
-  // TODO: вынести в конфиг или получать с бэка, но пока так
-  const categories = [
-    { value: '0', label: 'Электроника' },
-    { value: '1', label: 'Недвижимость' },
-    { value: '2', label: 'Транспорт' },
-    { value: '3', label: 'Работа' },
-    { value: '4', label: 'Услуги' },
-    { value: '5', label: 'Животные' },
-    { value: '6', label: 'Мода' },
-    { value: '7', label: 'Детское' },
+  
+  const statusOptions = [
+    STATUSES.PENDING, 
+    STATUSES.APPROVED, 
+    STATUSES.REJECTED,
+    STATUSES.DRAFT
   ];
 
   return (
     <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-        {/* поиск по названию */}
+        
+        {/* поиск */}
         <div className="md:col-span-4 relative">
            <Input 
              placeholder="Поиск по названию..." 
@@ -32,17 +29,17 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
            <Search className="absolute left-3 top-3 text-gray-400" size={16} />
         </div>
 
-        {/* категория */}
+        {/* категории */}
         <div className="md:col-span-2">
           <Select
             placeholder="Все категории"
-            options={categories}
+            options={CATEGORY_OPTIONS} 
             value={filters.categoryId || ''} 
             onChange={(e) => onFilterChange('categoryId', e.target.value)}
           />
         </div>
 
-        {/* цены по инпуту */}
+        {/* цены */}
         <div className="md:col-span-2">
            <Input 
              type="number" 
@@ -61,7 +58,7 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
            />
         </div>
         
-        {/* кнопка сброса */}
+        {/* сброс */}
         <div className="md:col-span-2">
           <Button variant="secondary" onClick={onReset} className="w-full flex items-center justify-center gap-1">
              <X size={16} /> Сбросить
@@ -69,11 +66,10 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
         </div>
       </div>
 
-      {/* статусы - можно выбирать несколько */}
+      {/* статусы */}
       <div className="flex flex-wrap gap-2 pt-2 border-t border-gray-100">
          <span className="text-sm text-gray-500 py-1 flex items-center">Статус:</span>
-         {['pending', 'approved', 'rejected', 'draft'].map(status => {
-            // парс строки со статусами, тк в юрл они через запятую
+         {statusOptions.map(status => {
             const currentStatuses = filters.status ? filters.status.split(',') : [];
             const isActive = currentStatuses.includes(status);
             
@@ -95,7 +91,7 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
                     : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400'
                 }`}
               >
-                {badgeLabels[status] || status}
+                {STATUS_LABELS[status] || status}
               </button>
             )
          })}

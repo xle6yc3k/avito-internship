@@ -1,16 +1,11 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { Layout } from './layout/Layout';
-import AdsListPage from './pages/AdsListPage';
+import { Layout } from '@/layout/Layout';
+import AdsListPage from '@/pages/AdsListPage';
+import AdDetailsPage from '@/pages/AdDetailsPage';
 
 // ВРЕМЕННЫЕ ЗАГЛУШКИ
-const AdDetailsPage = () => (
-  <div className="text-center py-20">
-    <h2 className="text-2xl font-bold text-gray-700">📦 Детальная страница</h2>
-  </div>
-);
-
 const StatsPage = () => (
   <div className="text-center py-20">
     <h2 className="text-2xl font-bold text-gray-700">📊 Статистика</h2>
