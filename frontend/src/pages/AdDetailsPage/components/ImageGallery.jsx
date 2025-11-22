@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images?.[0]);
+
+  // для устранения рассинхрона при быстром переключении объявлений
+  useEffect(() => {
+    if (images && images.length > 0) {
+      setSelectedImage(images[0]);
+    }
+  }, [images]);
 
   // если нет изображений, показываем заглушку
   if (!images || images.length === 0) {
@@ -14,7 +21,7 @@ export const ImageGallery = ({ images }) => {
 
   return (
     <div className="space-y-4">
-      {/* главное изображение */}
+      {/* главное */}
       <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden border border-gray-200 relative">
         <img 
           src={selectedImage} 
