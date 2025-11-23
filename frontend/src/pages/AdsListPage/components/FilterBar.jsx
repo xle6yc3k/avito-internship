@@ -14,6 +14,24 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
     STATUSES.DRAFT
   ];
 
+  const sortOptions = [
+    {value: 'createdAt-desc', label: 'Сначала новые'},
+    {value: 'createdAt-asc', label: 'Сначала старые'},
+    {value: 'price-asc', label: 'Сначала дешевле'},
+    {value: 'price-desc', label: 'Сначала дороже'},
+    {value: 'priority-desc', label: 'По приоритету'},
+  ]
+
+  const handleSortChange = (e) => {
+    const value = e.target.value;
+    if (!value) return;
+    const [sortBy, sortOrder] = value.split('-');
+    onFilterChange({sortBy, sortOrder});
+  }
+
+  const currentSort = filters.sortBy
+    ? `${filters.sortBy}-${filters.sortOrder || 'desc'}`
+    : '';
   return (
     <div className="bg-white p-4 rounded-xl border border-gray-200 shadow-sm space-y-4 mb-6">
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
@@ -36,6 +54,16 @@ export const FilterBar = ({ filters, onFilterChange, onReset }) => {
             options={CATEGORY_OPTIONS} 
             value={filters.categoryId || ''} 
             onChange={(e) => onFilterChange('categoryId', e.target.value)}
+          />
+        </div>
+
+        {/* сортировка */}
+        <div className='md:col-span-2'>
+          <Select
+            placeholder="Сортировка"
+            options={sortOptions} 
+            value={currentSort} 
+            onChange={handleSortChange}
           />
         </div>
 

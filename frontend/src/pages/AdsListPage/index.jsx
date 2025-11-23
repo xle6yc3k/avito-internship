@@ -25,14 +25,20 @@ const AdsListPage = () => {
     keepPreviousData: true 
   });
 
-  const updateFilter = (key, value) => {
+  const updateFilter = (keyOrUpdates, value) => {
     const newParams = new URLSearchParams(searchParams);
-    if (value) {
-      newParams.set(key, value);
-    } else {
-      newParams.delete(key);
+    
+    if (typeof keyOrUpdates === 'object') {
+      Object.entries(keyOrUpdates).forEach(([k, v]) => {
+        if (v) newParams.set(k, v);
+        else newParams.delete(k);
+      });
+    } 
+    else {
+      if (value) newParams.set(keyOrUpdates, value);
+      else newParams.delete(keyOrUpdates);
     }
-    // при изменении фильтра сброс на первую страницу
+
     newParams.set('page', 1);
     setSearchParams(newParams);
   };
