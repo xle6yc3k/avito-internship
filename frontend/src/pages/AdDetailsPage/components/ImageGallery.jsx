@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ImageWithFallback } from '@components/ui/ImageWithFallback';
 
 export const ImageGallery = ({ images }) => {
   const [selectedImage, setSelectedImage] = useState(images?.[0]);
@@ -23,7 +24,7 @@ export const ImageGallery = ({ images }) => {
     <div className="space-y-4">
       {/* главное */}
       <div className="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden border border-gray-200 relative">
-        <img 
+        <ImageWithFallback 
           src={selectedImage} 
           alt="Main" 
           className="w-full h-full object-cover transition-opacity duration-300" 

@@ -26,8 +26,12 @@ export const Layout = () => {
             <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
                {/* лого */}
                <NavLink to="/list" className="flex items-center gap-2 font-bold text-xl text-gray-900 hover:opacity-80 transition shrink-0">
-                  <div className="w-8 h-8 bg-blue-600 text-white flex items-center justify-center rounded shrink-0">A</div>
-                  <span className="hidden sm:block">Moderation</span>
+                <img 
+                    src="/avito.svg" 
+                    alt="Logo" 
+                    className="w-8 h-8 object-contain" 
+                />
+                <span className="hidden sm:block">Модерация</span>
                </NavLink>
     
                {/* навбар */}

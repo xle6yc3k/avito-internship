@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge';
-import { Tag, Clock, AlertCircle } from 'lucide-react';
+import { Badge } from '@components/ui/Badge';
+import { ImageWithFallback } from '@components/ui/ImageWithFallback';
+import { Tag, Clock } from 'lucide-react';
 
 export const AdCard = ({ ad }) => {
   // цену в рубли
@@ -20,7 +21,7 @@ export const AdCard = ({ ad }) => {
     <div className="group bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 flex flex-col">
       {/* картинка */}
       <div className="relative aspect-[4/3] bg-gray-100 overflow-hidden">
-        <img 
+        <ImageWithFallback 
           src={ad.images?.[0] || 'https://placehold.co/400x300?text=No+Image'} 
           alt={ad.title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
