@@ -34,24 +34,26 @@ export const DecisionsChart = ({ data }) => {
     <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm h-[400px] flex flex-col">
       <h3 className="text-lg font-bold text-gray-900 mb-6 shrink-0">Решения</h3>
       
-      <div className="flex-grow min-h-0">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Pie
-              data={chartData}
-              innerRadius={80}
-              outerRadius={110}
-              paddingAngle={5}
-              dataKey="value"
-            >
-              {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend verticalAlign="bottom" height={36} iconType="circle" />
-          </PieChart>
-        </ResponsiveContainer>
+      <div className="flex-1 min-h-0 w-full relative">
+        <div className="absolute inset-0">
+          <ResponsiveContainer width="100%" height="100%" debounce={50}>
+            <PieChart>
+              <Pie
+                data={chartData}
+                innerRadius={80}
+                outerRadius={110}
+                paddingAngle={5}
+                dataKey="value"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} stroke="none" />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend verticalAlign="bottom" height={36} iconType="circle" />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
