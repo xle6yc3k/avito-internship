@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/Input';
 
 import { StatCard } from './components/StatCard';
 import { ActivityChart } from './components/ActivityChart';
+import { CategoriesChart } from './components/CategoriesChart';
 import { DecisionsChart } from './components/DecisionsChart';
 
 const PERIODS = [
@@ -27,6 +28,11 @@ const StatsPage = () => {
     ...(period === 'custom' && dateTo && { endDate: dateTo }),
   };
 
+  const { data: categories, isLoading: isCategoriesLoading } = useQuery({
+    queryKey: ['stats', 'categories', period, dateFrom, dateTo],
+    queryFn: () => statsApi.getCategories(queryParams),
+  });
+
   const queryKey = ['stats', period, dateFrom, dateTo];
 
   const { data: summary, isLoading: isSummaryLoading } = useQuery({
@@ -44,7 +50,7 @@ const StatsPage = () => {
     queryFn: () => statsApi.getDecisions(queryParams),
   });
 
-  const isLoading = isSummaryLoading || isActivityLoading || isDecisionsLoading;
+  const isLoading = isSummaryLoading || isActivityLoading || isDecisionsLoading || isCategoriesLoading;
 
   return (
     <div className="animate-fade-in space-y-6 pb-10">
@@ -119,7 +125,7 @@ const StatsPage = () => {
             />
             <StatCard 
               title="Ср. время проверки" 
-              value={`${Math.floor((summary?.averageReviewTime || 0) / 6000)} мин`} 
+              value={`${Math.floor((summary?.averageReviewTime || 0) / 1000)} сек`} 
               icon={Clock} 
               color="purple"
             />
@@ -128,6 +134,9 @@ const StatsPage = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ActivityChart data={activity} />
             <DecisionsChart data={decisions} />
+            <div className="lg:col-span-2">
+                <CategoriesChart data={categories} />
+            </div>
           </div>
         </>
       )}
